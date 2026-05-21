@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sur le Plateau – Fromagerie Crèmerie · Pézenas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #faf7f2;
+      --warm:    #f0e8d8;
+      --stone:   #a89880;
+      --clay:    #8b6e52;
+      --dark:    #3a2e22;
+      --green:   #6a8a6a;
+      --accent:  #c4935a;
+      --section-plateau: #f2ece0;
+      --section-contact: #dce8d8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--warm);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 600; letter-spacing: .08em;
+      color: var(--dark); text-decoration: none;
+    }
+    .nav-logo span { color: var(--clay); font-style: italic; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: .8rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--dark); text-decoration: none;
+      transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--clay); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(196,147,90,.12), transparent),
+        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(74,94,74,.10), transparent);
+    }
+    .hero-tag {
+      font-size: .72rem; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--clay); margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp .8s .2s forwards;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 10vw, 9rem);
+      font-weight: 300; line-height: 1;
+      color: var(--dark);
+      opacity: 0; animation: fadeUp .9s .35s forwards;
+    }
+    .hero h1 em { font-style: italic; color: var(--clay); }
+    .hero-sub {
+      font-size: 1rem; color: var(--stone);
+      margin: 1.8rem 0 2.8rem; letter-spacing: .06em;
+      opacity: 0; animation: fadeUp .9s .5s forwards;
+    }
+    .hero-btn {
+      display: inline-block;
+      padding: .85rem 2.5rem;
+      background: var(--dark); color: var(--cream);
+      font-size: .78rem; letter-spacing: .18em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background .3s, transform .3s;
+      opacity: 0; animation: fadeUp .9s .65s forwards;
+    }
+    .hero-btn:hover { background: var(--clay); transform: translateY(-2px); }
+
+    /* decorative ring */
+    .hero-ring {
+      position: absolute; bottom: -120px; right: -80px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      border: 1px solid rgba(184,169,144,.3);
+      pointer-events: none;
+    }
+    .hero-ring::after {
+      content: ''; position: absolute; inset: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,147,90,.15);
+    }
+
+    /* sparkle SVG inline */
+    .hero-sparkle {
+      position: absolute; top: 18%; right: 12%;
+      opacity: .25; animation: spin 20s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: .72rem; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--clay); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 300; line-height: 1.1;
+      color: var(--dark);
+    }
+    .section-title em { font-style: italic; color: var(--clay); }
+    .divider {
+      width: 60px; height: 1px;
+      background: var(--stone); margin: 2rem 0;
+    }
+
+    /* ── ABOUT ── */
+    #boutique { background: var(--cream); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center; margin-top: 3rem;
+    }
+    .about-text p {
+      line-height: 1.9; color: #5a4e3e; margin-bottom: 1.2rem;
+      font-size: .97rem;
+    }
+    .about-visual {
+      position: relative; display: flex; justify-content: center;
+    }
+    /* Logo SVG placeholder */
+    .logo-circle {
+      width: 280px; height: 280px; border-radius: 50%;
+      background: #fff;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 20px 60px rgba(44,35,24,.1);
+      padding: 2rem;
+    }
+    .logo-circle svg { width: 160px; }
+    .logo-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 400;
+      margin-top: .5rem; color: var(--dark);
+    }
+    .logo-sub {
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--stone); margin-top: .2rem;
+    }
+
+    /* horaires */
+    .horaires {
+      margin-top: 2.5rem;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.5rem;
+    }
+    .horaires h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; margin-bottom: 1rem; color: var(--dark);
+    }
+    .horaires table { border-collapse: collapse; }
+    .horaires td {
+      padding: .25rem 1.5rem .25rem 0;
+      font-size: .85rem; color: #6b5d4e;
+    }
+    .horaires td:first-child { font-weight: 500; color: var(--dark); }
+
+    /* ── PLATEAUX (DEVIS) ── */
+    #plateaux { background: var(--section-plateau); color: var(--dark); }
+    #plateaux .section-label { color: var(--clay); }
+    #plateaux .section-title { color: var(--dark); }
+    #plateaux .divider { background: var(--accent); }
+
+    .plateaux-intro {
+      font-size: .97rem; line-height: 1.9;
+      color: #6b5d4e; margin-bottom: 3rem; max-width: 600px;
+    }
+
+    .devis-form {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      max-width: 800px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: .5rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--clay);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: #fff;
+      border: 1px solid var(--warm);
+      color: var(--dark);
+      padding: .85rem 1rem;
+      font-family: 'Jost', sans-serif; font-size: .9rem;
+      outline: none;
+      transition: border-color .3s;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--stone); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--accent); }
+    .form-group select option { background: #fff; color: var(--dark); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    /* plateau cards */
+    .plateau-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .plateau-card {
+      background: #fff;
+      border: 1px solid var(--warm);
+      padding: 1.8rem 1.5rem;
+      cursor: pointer;
+      transition: border-color .3s, background .3s, box-shadow .3s;
+    }
+    .plateau-card:hover,
+    .plateau-card.selected { border-color: var(--accent); background: #fffaf4; box-shadow: 0 8px 30px rgba(196,147,90,.15); }
+    .plateau-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; color: var(--dark); margin-bottom: .5rem;
+    }
+    .plateau-card p { font-size: .82rem; color: #7a6a5a; line-height: 1.7; }
+    .plateau-card .price {
+      margin-top: 1rem; font-size: 1.1rem;
+      color: var(--accent); font-family: 'Cormorant Garamond', serif;
+    }
+
+    .submit-btn {
+      margin-top: 1rem;
+      padding: .9rem 3rem;
+      background: var(--accent); color: #fff;
+      border: none; cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: .78rem; letter-spacing: .18em; text-transform: uppercase;
+      transition: background .3s, transform .3s;
+    }
+    .submit-btn:hover { background: var(--clay); transform: translateY(-2px); }
+
+    /* ── NEWS ── */
+    #actualites { background: var(--warm); }
+    .news-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+      margin-top: 3rem;
+    }
+    .news-card {
+      background: var(--cream);
+      padding: 2rem;
+      position: relative;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .news-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(44,35,24,.1); }
+    .news-date {
+      font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--stone); margin-bottom: 1rem;
+    }
+    .news-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; color: var(--dark); margin-bottom: .8rem; line-height: 1.3;
+    }
+    .news-card p { font-size: .88rem; color: #6b5d4e; line-height: 1.8; }
+    .news-tag {
+      display: inline-block; margin-top: 1.2rem;
+      padding: .3rem .9rem;
+      background: var(--green); color: #fff;
+      font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+    }
+
+    /* ── CONTACT / FOOTER ── */
+    #contact { background: var(--section-contact); color: var(--dark); text-align: center; }
+    #contact .section-title { color: var(--dark); }
+    #contact .section-label { color: var(--clay); }
+    #contact .divider { background: var(--stone); margin: 2rem auto; }
+    .contact-info {
+      display: flex; justify-content: center; gap: 4rem;
+      margin-top: 2.5rem; flex-wrap: wrap;
+    }
+    .contact-block h4 {
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--clay); margin-bottom: .6rem;
+    }
+    .contact-block p { font-size: 1rem; font-family: 'Cormorant Garamond', serif; color: var(--dark); }
+    .contact-block a { color: var(--dark); text-decoration: none; }
+    .contact-block a:hover { color: var(--clay); text-decoration: underline; }
+
+    footer {
+      background: var(--warm);
+      text-align: center; padding: 1.5rem;
+      font-size: .75rem; color: var(--stone); letter-spacing: .08em;
+      border-top: 1px solid var(--stone);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .plateau-cards { grid-template-columns: 1fr; }
+      .devis-form { grid-template-columns: 1fr; }
+      .news-grid { grid-template-columns: 1fr; }
+      .contact-info { flex-direction: column; gap: 2rem; }
+    }
+
+    /* success message */
+    .success-msg {
+      display: none;
+      background: rgba(44,74,44,.85);
+      border: 1px solid #2a5a2a;
+      padding: 1.2rem 1.5rem;
+      color: #ffffff;
+      font-size: .9rem;
+      margin-top: 1rem;
+      grid-column: 1 / -1;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+<nav>
+  <a class="nav-logo" href="#"><img src="images/logo.png" alt="Logo Sur le Plateau" style="height:40px;width:auto;object-fit:contain;margin-right:.8rem;vertical-align:middle;background:transparent;padding:0;"/><span>Sur le Plateau</span></a>
+  <ul class="nav-links">
+    <li><a href="#boutique">La Boutique</a></li>
+    <li><a href="#plateaux">Plateaux</a></li>
+    <li><a href="#actualites">Actualités</a></li>
+    <li><a href="#photos">Photos</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<header class="hero">
+  <div class="hero-ring"></div>
+
+  <!-- Sparkle SVG inspired by logo -->
+  <svg class="hero-sparkle" width="80" height="80" viewBox="0 0 80 80" fill="none">
+    <line x1="40" y1="5" x2="40" y2="75" stroke="#c4935a" stroke-width=".8"/>
+    <line x1="5" y1="40" x2="75" y2="40" stroke="#c4935a" stroke-width=".8"/>
+    <line x1="16" y1="16" x2="64" y2="64" stroke="#c4935a" stroke-width=".8"/>
+    <line x1="64" y1="16" x2="16" y2="64" stroke="#c4935a" stroke-width=".8"/>
+    <circle cx="40" cy="40" r="3" fill="#c4935a"/>
+    <circle cx="40" cy="8" r="1.5" fill="#c4935a"/>
+    <circle cx="40" cy="72" r="1.5" fill="#c4935a"/>
+    <circle cx="8" cy="40" r="1.5" fill="#c4935a"/>
+    <circle cx="72" cy="40" r="1.5" fill="#c4935a"/>
+  </svg>
+
+  <p class="hero-tag">Fromagerie · Crèmerie · Pézenas</p>
+  <div style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;">
+    <img src="images/logo.png" alt="Logo Sur le Plateau" style="height:clamp(80px,12vw,140px);width:auto;object-fit:contain;opacity:0;animation:fadeUp .9s .35s forwards;" />
+    <h1>Sur le <em>Plateau</em></h1>
+  </div>
+  <p class="hero-sub">Fromages fermiers au lait cru &nbsp;·&nbsp; Sélection artisanale &nbsp;·&nbsp; Cœur de l'Hérault</p>
+  <a class="hero-btn" href="#plateaux">Composer un plateau →</a>
+</header>
+
+<!-- ═══════════════════════════════ BOUTIQUE ═══════════════════════════════ -->
+<section id="boutique">
+  <div class="section-inner">
+    <p class="section-label reveal">La Boutique</p>
+    <h2 class="section-title reveal">L'amour du <em>fromage</em>,<br>au cœur de Pézenas</h2>
+    <div class="divider reveal"></div>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          Nichée dans les ruelles médiévales de Pézenas, <strong>Sur le Plateau</strong> est une fromagerie‑crèmerie fondée avec passion et savoir-faire. Nous sélectionnons chaque semaine des fromages fermiers au lait cru, directement auprès de producteurs locaux et régionaux.
+        </p>
+        <p>
+          Chèvres des garrigues, brebis de l'Aveyron, vaches des Pyrénées… Chaque pièce raconte un terroir, une saison, un éleveur. Notre mission : vous faire découvrir et redécouvrir le vrai goût du fromage.
+        </p>
+        <p>
+          Nous proposons également une sélection de crèmes, beurres fermiers, yaourts artisanaux et accompagnements pour sublimer vos plateaux.
+        </p>
+
+        <div class="horaires">
+          <h3>Horaires d'ouverture</h3>
+          <table>
+            <tr><td>Lundi</td><td>Fermé</td></tr>
+            <tr><td>Mardi – Vendredi</td><td>9h00 – 13h00 &nbsp;/&nbsp; 16h00 – 19h00</td></tr>
+            <tr><td>Samedi</td><td>9h00 – 14h00 &nbsp;/&nbsp; 15h30 – 19h30</td></tr>
+            <tr><td>Dimanche</td><td>9h30 – 12h30</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="about-visual reveal">
+        <div class="logo-circle">
+          <!-- Logo SVG inspired by the brand identity -->
+          <svg viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <text x="100" y="22" text-anchor="middle" font-family="Jost, sans-serif"
+                  font-size="10" letter-spacing="5" fill="#2c2318">FROMAGERIE</text>
+            <text x="100" y="36" text-anchor="middle" font-family="Jost, sans-serif"
+                  font-size="9" letter-spacing="4" fill="#2c2318">CRÈMERIE</text>
+            <!-- Sparkle -->
+            <g transform="translate(155,28) scale(0.7)">
+              <line x1="0" y1="-12" x2="0" y2="12" stroke="#2c2318" stroke-width="1"/>
+              <line x1="-12" y1="0" x2="12" y2="0" stroke="#2c2318" stroke-width="1"/>
+              <line x1="-8" y1="-8" x2="8" y2="8" stroke="#2c2318" stroke-width=".8"/>
+              <line x1="8" y1="-8" x2="-8" y2="8" stroke="#2c2318" stroke-width=".8"/>
+              <circle cx="0" cy="0" r="2" fill="#2c2318"/>
+            </g>
+            <!-- Cheese wheel sketch -->
+            <ellipse cx="100" cy="72" rx="38" ry="16" fill="none" stroke="#2c2318" stroke-width="1.2"/>
+            <ellipse cx="100" cy="58" rx="38" ry="16" fill="#fff" stroke="#2c2318" stroke-width="1.2"/>
+            <path d="M62 58 L62 72" stroke="#2c2318" stroke-width="1.2"/>
+            <path d="M138 58 L138 72" stroke="#2c2318" stroke-width="1.2"/>
+            <!-- wedge -->
+            <path d="M100 58 L125 48 L138 58 L138 72 L125 62 Z" fill="none" stroke="#2c2318" stroke-width="1.2"/>
+            <!-- holes -->
+            <circle cx="90" cy="60" r="2" fill="#2c2318" opacity=".3"/>
+            <circle cx="78" cy="65" r="1.5" fill="#2c2318" opacity=".3"/>
+            <circle cx="95" cy="68" r="1.8" fill="#2c2318" opacity=".3"/>
+          </svg>
+          <div class="logo-name">Sur le plateau</div>
+          <div class="logo-sub">Fromages fermiers au lait cru</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PLATEAUX / DEVIS ═══════════════════════════════ -->
+<section id="plateaux">
+  <div class="section-inner">
+    <p class="section-label reveal">Commande & Devis</p>
+    <h2 class="section-title reveal">Composer votre <em>plateau</em></h2>
+    <div class="divider reveal"></div>
+    <p class="plateaux-intro reveal">
+      Mariage, anniversaire, apéritif professionnel ou simple plaisir entre amis — nous concevons des plateaux sur‑mesure adaptés à vos envies, votre budget et le nombre de convives. Remplissez le formulaire ci-dessous et nous reviendrons vers vous sous 24 h.
+    </p>
+
+    <!-- Plateau types -->
+    <div class="plateau-cards reveal">
+      <div class="plateau-card" onclick="selectPlateau(this, 'Découverte')">
+        <h3>Découverte</h3>
+        <p>4 à 5 fromages soigneusement sélectionnés, parfait pour initier vos convives aux saveurs du terroir.</p>
+        <div class="price">À partir de 18 € / pers.</div>
+      </div>
+      <div class="plateau-card" onclick="selectPlateau(this, 'Gourmand')">
+        <h3>Gourmand</h3>
+        <p>6 à 7 fromages, accompagnements (charcuterie, confitures, miel) et pains artisanaux assortis.</p>
+        <div class="price">À partir de 28 € / pers.</div>
+      </div>
+      <div class="plateau-card" onclick="selectPlateau(this, 'Prestige')">
+        <h3>Prestige</h3>
+        <p>8 à 10 fromages d'exception incluant des affinages rares, dressage soigné et présentation en plateau bois.</p>
+        <div class="price">À partir de 42 € / pers.</div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form class="devis-form reveal" id="devisForm" name="devis-plateau" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="devis-plateau" />
+      <p style="display:none"><label>Ne pas remplir : <input name="bot-field" /></label></p>
+      <div class="form-group">
+        <label>Prénom & Nom</label>
+        <input type="text" placeholder="Marie Dupont" id="f-name" name="nom" />
+      </div>
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input type="tel" placeholder="06 00 00 00 00" id="f-tel" name="telephone" />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="marie@exemple.fr" id="f-email" name="email" />
+      </div>
+      <div class="form-group">
+        <label>Date souhaitée</label>
+        <input type="date" id="f-date" name="date" />
+      </div>
+      <div class="form-group">
+        <label>Type de plateau</label>
+        <select id="f-type" name="type-plateau">
+          <option value="">— Choisissez —</option>
+          <option>Découverte</option>
+          <option>Gourmand</option>
+          <option>Prestige</option>
+          <option>Sur-mesure</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nombre de personnes</label>
+        <input type="number" min="2" placeholder="10" id="f-guests" name="nombre-personnes" />
+      </div>
+      <div class="form-group full">
+        <label>Précisions / allergies / demandes particulières</label>
+        <textarea placeholder="Ex : sans noix, fromages uniquement de brebis, livraison possible ?" id="f-notes" name="notes"></textarea>
+      </div>
+      <div class="form-group full">
+        <button type="button" class="submit-btn" onclick="submitDevis()">Envoyer ma demande →</button>
+      </div>
+      <div class="success-msg" id="successMsg">
+        ✓ &nbsp; Merci pour votre demande ! Nous vous contacterons dans les 24 h pour finaliser votre plateau.
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ ACTUALITÉS ═══════════════════════════════ -->
+<section id="actualites">
+  <div class="section-inner">
+    <p class="section-label reveal">Actualités</p>
+    <h2 class="section-title reveal">Les nouvelles <em>de la boutique</em></h2>
+    <div class="divider reveal"></div>
+
+    <div class="news-grid">
+      <article class="news-card reveal">
+        <p class="news-date">Mai 2025</p>
+        <h3>Ouverture de la terrasse pour l'été</h3>
+        <p>Le soleil est là et notre terrasse ouvre ses portes ! Venez profiter de préparations fromagères maison — planches, fondues, tartines gourmandes — accompagnées d'une sélection de boissons soigneusement choisies. Parfait pour un déjeuner ou un apéritif en plein cœur de Pézenas.</p>
+        <span class="news-tag">Nouveauté</span>
+      </article>
+      <article class="news-card reveal">
+        <p class="news-date">Mai 2025</p>
+        <h3>Arrivée du Noilly Prat en boutique</h3>
+        <p>Le vermouth emblématique de Marseillan est désormais disponible chez nous. Fruité, aromatique et élégant, le Noilly Prat se marie à merveille avec vos fromages affinés — essayez-le avec un Comté 18 mois ou un Roquefort. Un accord à découvrir absolument !</p>
+        <span class="news-tag">Produit</span>
+      </article>
+      <article class="news-card reveal">
+        <p class="news-date">Mai 2025</p>
+        <h3>Arrivée des tommes estivales de l'Aubrac</h3>
+        <p>La saison des alpages bat son plein ! Nous accueillons cette semaine une sélection de tommes fraîches et mi-affinées directement issues des prairies de l'Aubrac.</p>
+        <span class="news-tag">Nouveauté</span>
+      </article>
+      <article class="news-card reveal">
+        <p class="news-date">Avril 2025</p>
+        <h3>Atelier initiation à l'accord fromages & vins</h3>
+        <p>Une soirée dégustation en partenariat avec le Domaine de Belles Eaux : 6 fromages, 6 vins régionaux, une expérience sensorielle unique. Réservations en boutique.</p>
+        <span class="news-tag">Événement</span>
+      </article>
+      <article class="news-card reveal">
+        <p class="news-date">Mars 2025</p>
+        <h3>Nouveaux beurres fermiers &amp; yaourts artisanaux</h3>
+        <p>Notre rayon crèmerie s'étoffe avec l'arrivée de beurres au lait cru de la Ferme du Devès et de yaourts brassés en pots de grès. À déguster sans modération.</p>
+        <span class="news-tag">Produit</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════ PHOTOS ═══════════════════════════════ -->
+<section id="photos" style="background: var(--cream);">
+  <div class="section-inner">
+    <p class="section-label reveal">Galerie</p>
+    <h2 class="section-title reveal">Notre boutique <em>en images</em></h2>
+    <div class="divider reveal"></div>
+    <div class="photo-grid reveal" style="
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    ">
+      <div class="photo-item" style="overflow:hidden; aspect-ratio: 4/3; position: relative;">
+        <img src="images/photo1.jpeg" alt="Sélection de fromages" style="width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"/>
+      </div>
+      <div class="photo-item" style="overflow:hidden; aspect-ratio: 4/3; position: relative;">
+        <img src="images/photo2.jpeg" alt="L'intérieur de la boutique" style="width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"/>
+      </div>
+      <div class="photo-item" style="overflow:hidden; aspect-ratio: 4/3; position: relative;">
+        <img src="images/photo3.jpeg" alt="Plateau de fromages" style="width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"/>
+      </div>
+      <div class="photo-item" style="overflow:hidden; aspect-ratio: 4/3; position: relative; grid-column: span 2;">
+        <img src="images/photo4.jpeg" alt="Plateau sur mesure en bord de mer" style="width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"/>
+      </div>
+      <div class="photo-item" style="overflow:hidden; aspect-ratio: 4/3; position: relative;">
+        <img src="images/photo5.jpeg" alt="Vue de la boutique" style="width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'"/>
+      </div>
+    </div>
+    <style>
+      @media (max-width: 768px) {
+        #photos .photo-grid { grid-template-columns: 1fr 1fr; }
+        #photos .photo-item[style*="grid-column: span 2"] { grid-column: span 2; }
+      }
+      @media (max-width: 480px) {
+        #photos .photo-grid { grid-template-columns: 1fr; }
+        #photos .photo-item[style*="grid-column: span 2"] { grid-column: span 1; }
+      }
+    </style>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CONTACT ═══════════════════════════════ -->
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label">Nous trouver</p>
+    <h2 class="section-title">Venez nous rendre <em>visite</em></h2>
+    <div class="divider"></div>
+    <div class="contact-info">
+      <div class="contact-block">
+        <h4>Adresse</h4>
+        <p>Pézenas, Hérault (34)<br>Centre historique</p>
+      </div>
+      <div class="contact-block">
+        <h4>Instagram</h4>
+        <p><a href="https://www.instagram.com/fromagerie.surleplateau" target="_blank">@fromagerie.surleplateau</a></p>
+      </div>
+      <div class="contact-block">
+        <h4>Commandes & Infos</h4>
+        <p><a href="#plateaux">Formulaire de devis →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Fromagerie Crèmerie Sur le Plateau · Pézenas · Tous droits réservés
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Plateau selection
+  let selectedPlateau = '';
+  function selectPlateau(card, name) {
+    document.querySelectorAll('.plateau-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedPlateau = name;
+    const sel = document.getElementById('f-type');
+    for (let opt of sel.options) {
+      if (opt.value === name) { opt.selected = true; break; }
+    }
+  }
+
+  // Form submit
+  async function submitDevis() {
+    const name = document.getElementById('f-name').value;
+    const email = document.getElementById('f-email').value;
+    if (!name || !email) {
+      alert('Merci de renseigner au minimum votre nom et votre email.');
+      return;
+    }
+    const form = document.getElementById('devisForm');
+    const btn = form.querySelector('.submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours…';
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString(),
+      });
+      if (response.ok) {
+        document.getElementById('successMsg').style.display = 'block';
+        form.querySelectorAll('input:not([type=hidden]), select, textarea').forEach(el => el.value = '');
+        document.querySelectorAll('.plateau-card').forEach(c => c.classList.remove('selected'));
+        document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        btn.textContent = 'Envoyé ✓';
+      } else {
+        alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
+        btn.disabled = false;
+        btn.textContent = 'Envoyer ma demande →';
+      }
+    } catch {
+      alert('Une erreur réseau est survenue. Veuillez réessayer.');
+      btn.disabled = false;
+      btn.textContent = 'Envoyer ma demande →';
+    }
+  }
+</script>
+</body>
+</html>
